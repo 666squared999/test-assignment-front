@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  client:
+    build: ./client
+    ports:
+      - '80:80'
+    container_name: grechka-client
+    restart: unless-stopped
