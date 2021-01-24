@@ -1,0 +1,36 @@
+@import "../../assets/style.scss";
+.Wallpaper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url("../../assets/images/buckwheat.png");
+    background-size: cover;
+    color: #fff;
+    font-size: calc(20px + 2vw);
+    font-weight: bold;
+    .crossed {
+        text-decoration: line-through;
+        text-decoration-color: $color1;
+        font-size: 0.85em;
+    }
+    div {
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        margin: calc(40px + 4vw) 0 calc(20px + 2vw);
+        p {
+            text-align: center;
+            margin: 0 calc(20px + 2vw);
+        }
+    }
+    > p {
+        font-style: italic;
+        font-size: 2em;
+        text-align: center;
+        margin: calc(20px + 2vw) 0 calc(80px + 8vw);
+    }
+}

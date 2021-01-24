@@ -1,0 +1,14 @@
+@import "../../assets/style.scss";
+.Header {
+    display: flex;
+    align-items: center;
+    p {
+        color: $color2;
+        font-size: 40px;
+        font-weight: bold;
+        letter-spacing: 4px;
+        &::first-letter {
+            color: $color1;
+        }
+    }
+}

@@ -1,0 +1,25 @@
+@import "../../assets/style.scss";
+.Info {
+    width: 90%;
+    padding: 50px 5%;
+    display: flex;
+    flex-direction: column;
+    font-size: calc(20px + 1vw);
+    font-weight: bold;
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        p {
+            color: $color2;
+        }
+        .searchBar {
+            width: 400px;
+        }
+    }
+    .content {
+        display: flex;
+        .inputsContainer {
+        }
+    }
+}
