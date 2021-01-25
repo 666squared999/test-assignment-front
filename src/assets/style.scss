@@ -1,8 +1,15 @@
+@import "./mixins.scss";
+
 html,
 body {
     margin: 0;
     padding: 0;
     font-family: "Roboto";
+    font-size: 18px;
+
+    @include phones {
+        font-size: 14px;
+    }
 }
 $color1: #ff7306;
 $color2: #45190e;

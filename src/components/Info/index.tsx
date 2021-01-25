@@ -7,7 +7,7 @@ export const Info: FC = () => {
     const [searchValue, setSearchValue] = useState("");
 
     const handleSearchValueChange = (
-        event: React.ChangeEvent<HTMLInputElement>
+        event: React.ChangeEvent<HTMLInputElement>,
     ) => {
         setSearchValue(event.currentTarget.value);
     };
