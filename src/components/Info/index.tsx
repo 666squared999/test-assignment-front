@@ -17,11 +17,12 @@ export const Info: FC = () => {
             <div className="header">
                 <p>Гречка для народу</p>
                 <TextField
+                    color="primary"
                     className="searchBar"
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position="end">
-                                <Search />
+                                <Search color="secondary" />
                             </InputAdornment>
                         ),
                     }}

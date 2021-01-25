@@ -17,5 +17,11 @@ module.exports = {
         "@typescript-eslint/no-use-before-define": "off",
         "react/self-closing-comp": "warn",
         "react/jsx-no-bind": "off",
+        "prettier/prettier": [
+            "error",
+            {
+                endOfLine: "auto",
+            },
+        ],
     },
 };
