@@ -1,0 +1,98 @@
+@import "../../assets/style.scss";
+@import "../../assets/mixins.scss";
+
+.Filters {
+    display: flex;
+    align-items: center;
+
+    @include tablets {
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: stretch;
+    }
+
+    .filterWrapper {
+        display: flex;
+        align-items: center;
+        flex: 1;
+
+        @include phones {
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: stretch;
+            align-self: stretch;
+        }
+    }
+
+    .container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        flex: 1;
+        margin-right: 0.5em;
+
+        @include phones {
+            align-self: stretch;
+            margin-right: 0;
+        }
+    }
+
+    .weight {
+        justify-content: center;
+    }
+
+    .titleWrapper {
+        display: flex;
+        margin-right: 1em;
+
+        @include phones {
+            flex: 1;
+            margin-right: 0.2em;
+        }
+    }
+
+    .title {
+        font-size: 0.75em;
+    }
+
+    .range {
+        display: flex;
+        flex-direction: row;
+        align-self: center;
+        justify-content: flex-end;
+
+        @include phones {
+            flex: 1;
+        }
+    }
+
+    .dash {
+        font-size: 0.5em;
+        font-weight: 400;
+        margin: auto 1em;
+    }
+
+    .input {
+        width: 3.5em;
+    }
+
+    .buttonWrapper {
+        display: flex;
+        justify-content: flex-end;
+        flex-direction: row;
+        align-items: center;
+        flex: 0.3;
+
+        @include tablets {
+            align-self: stretch;
+        }
+    }
+
+    .button {
+        height: 3em;
+
+        @include tablets {
+            margin: 1em auto;
+        }
+    }
+}
