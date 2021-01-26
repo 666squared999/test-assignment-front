@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect, useState } from "react";
+import React, { FC, useCallback, useState } from "react";
 import { observer } from "mobx-react";
 import "./style.scss";
 import {
@@ -13,10 +13,14 @@ import {
     TableFooter,
     TablePagination,
     CircularProgress,
+    Avatar,
+    IconButton,
+    Link,
 } from "@material-ui/core";
 import TablePaginationActions from "../../utils/TablePaginationActions";
 import { IDataUnit } from "../Info";
 import capitalizeFirstLetter from "../../utils/capitalizeFirstLetter";
+import { Launch } from "@material-ui/icons";
 
 type Props = {
     loading?: boolean;
@@ -54,6 +58,7 @@ export const TableWrapper: FC<Props> = observer(
                         <Table size="medium">
                             <TableHead>
                                 <TableRow>
+                                    <TableCell />
                                     <TableCell>
                                         <TableSortLabel
                                             active={sortBy === "title"}
@@ -96,8 +101,22 @@ export const TableWrapper: FC<Props> = observer(
                                     : rows
                                 ).map((row: IDataUnit) => (
                                     <TableRow key={row.title}>
+                                        <TableCell>
+                                            <Avatar
+                                                alt="Product"
+                                                src={row.photo_url}>
+                                                G
+                                            </Avatar>
+                                        </TableCell>
                                         <TableCell component="th">
-                                            {row.title}
+                                            {row.title}{" "}
+                                            <Link href={row.page_url}>
+                                                <Launch
+                                                    fontSize="small"
+                                                    color="secondary"
+                                                    className="linkIcon"
+                                                />
+                                            </Link>
                                         </TableCell>
                                         <TableCell>
                                             {Math.round(
@@ -106,7 +125,12 @@ export const TableWrapper: FC<Props> = observer(
                                                     100,
                                             ) / 100}
                                         </TableCell>
-                                        <TableCell>{row.weight}</TableCell>
+                                        <TableCell>
+                                            {Math.round(
+                                                (row.weight + Number.EPSILON) *
+                                                    100,
+                                            ) / 100}
+                                        </TableCell>
                                         <TableCell>
                                             {capitalizeFirstLetter(
                                                 row.shopName,
@@ -118,19 +142,33 @@ export const TableWrapper: FC<Props> = observer(
                             <TableFooter>
                                 <TableRow>
                                     <TablePagination
+                                        labelRowsPerPage="Рядків на сторінку"
+                                        labelDisplayedRows={({
+                                            from,
+                                            to,
+                                            count,
+                                        }) => {
+                                            return (
+                                                "" +
+                                                from +
+                                                "-" +
+                                                to +
+                                                " з " +
+                                                count
+                                            );
+                                        }}
                                         rowsPerPageOptions={[
                                             10,
                                             25,
                                             50,
-                                            { label: "All", value: -1 },
+                                            { label: "Усі", value: -1 },
                                         ]}
                                         count={rows.length}
                                         rowsPerPage={rowsPerPage}
                                         page={page}
                                         SelectProps={{
                                             inputProps: {
-                                                "aria-label":
-                                                    "Рядків на сторінку",
+                                                "aria-label": "rows per page",
                                             },
                                             native: true,
                                         }}
