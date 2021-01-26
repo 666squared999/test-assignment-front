@@ -32,16 +32,54 @@ export const Info: FC = () => {
     const [weightBottom, setWeightBottom] = useState<number>();
     const [weightTop, setWeightTop] = useState<number>();
 
-    const applyFilters = useCallback(() => {}, []);
+    const [filteredRows, setFilteredRows] = useState<IDataUnit[]>([]);
 
-    const resetData = useCallback(() => {}, []);
+    const resetData = useCallback(() => {
+        setFilteredRows(rows);
+    }, [rows]);
+
+    const applyFilters = useCallback(() => {
+        if (!priceBottom && !priceTop && !weightBottom && !weightTop) {
+            resetData();
+            return;
+        }
+
+        const filtered = filteredRows.filter((data) => {
+            const priceCondition = priceBottom
+                ? priceTop
+                    ? data.price_per_kg >= priceBottom &&
+                      data.price_per_kg <= priceTop
+                    : data.price_per_kg >= priceBottom
+                : priceTop
+                ? data.price_per_kg <= priceTop
+                : true;
+
+            const weightCondition = weightBottom
+                ? weightTop
+                    ? data.weight >= weightBottom && data.weight <= weightTop
+                    : data.weight >= weightBottom
+                : weightTop
+                ? data.weight <= weightTop
+                : true;
+
+            return priceCondition && weightCondition;
+        });
+
+        setFilteredRows(filtered);
+    }, [
+        filteredRows,
+        priceBottom,
+        priceTop,
+        resetData,
+        weightBottom,
+        weightTop,
+    ]);
 
     const handleFetchData = useCallback(async () => {
         try {
             setLoading(true);
             const response = await getBuckWeat();
             const data = await response.json();
-            console.log(data);
             const preparedData: IDataUnit[] = [];
             for (let i = 0; i < data.length; i++) {
                 const shopData = data[i];
@@ -58,6 +96,7 @@ export const Info: FC = () => {
             console.log(preparedData);
 
             setRows(preparedData);
+            setFilteredRows(preparedData);
             setLoading(false);
         } catch (e) {
             console.log("Error fetching data", e);
@@ -89,7 +128,7 @@ export const Info: FC = () => {
                 onCancel={resetData}
             />
 
-            <TableWrapper rows={rows} loading={loading} />
+            <TableWrapper rows={filteredRows} loading={loading} />
         </div>
     );
 };
