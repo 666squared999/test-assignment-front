@@ -66,7 +66,6 @@ export const Info: FC = () => {
                 : sortOrder === "asc"
                 ? 1
                 : -1;
-            return 0;
         };
         rowsCopy.sort(compareFn);
         return rowsCopy;
@@ -78,7 +77,7 @@ export const Info: FC = () => {
             return;
         }
 
-        const filtered = filteredRows.filter((data) => {
+        const filtered = rows.filter((data) => {
             const priceCondition = priceBottom
                 ? priceTop
                     ? data.price_per_kg >= priceBottom &&
@@ -100,29 +99,21 @@ export const Info: FC = () => {
         });
 
         setFilteredRows(filtered);
-    }, [
-        filteredRows,
-        priceBottom,
-        priceTop,
-        resetData,
-        weightBottom,
-        weightTop,
-    ]);
+    }, [priceBottom, priceTop, resetData, rows, weightBottom, weightTop]);
 
     const applySearch = useCallback(() => {
-        setFilteredRows(rows);
-
         if (!searchValue) {
+            setFilteredRows(rows);
             return;
         }
 
-        const filtered = filteredRows.filter((data) => {
+        const filtered = rows.filter((data) => {
             const title = data.title.toLowerCase();
 
             return title.includes(searchValue.toLowerCase());
         });
         setFilteredRows(filtered);
-    }, [filteredRows, rows, searchValue]);
+    }, [rows, searchValue]);
 
     const handleFetchData = useCallback(async () => {
         try {
@@ -142,7 +133,6 @@ export const Info: FC = () => {
                     });
                 }
             }
-            console.log(preparedData);
 
             setRows(preparedData);
             setFilteredRows(preparedData);

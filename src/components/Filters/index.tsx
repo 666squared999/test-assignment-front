@@ -1,9 +1,4 @@
-import {
-    Button,
-    ButtonProps,
-    TextField,
-    TextFieldProps,
-} from "@material-ui/core";
+import { Button, TextField, TextFieldProps } from "@material-ui/core";
 import React, { FC, useCallback, useState } from "react";
 import "./style.scss";
 
@@ -248,7 +243,7 @@ export const Filters: FC<FiltersProps> = ({
                     className="button button_right"
                     component="span"
                     variant="contained"
-                    color="secondary"
+                    color="primary"
                     disabled={hasError}
                     onClick={onSubmit}>
                     Застосувати

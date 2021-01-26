@@ -1,6 +1,6 @@
 import { IconButton, InputAdornment, TextField } from "@material-ui/core";
 import { Search } from "@material-ui/icons";
-import React, { FC, useState } from "react";
+import React, { FC, useEffect } from "react";
 import "./style.scss";
 
 type Props = {
@@ -19,6 +19,20 @@ export const SearchBar: FC<Props> = ({
     ) => {
         setSearchValue(event.currentTarget.value);
     };
+
+    useEffect(() => {
+        const listener = (event: KeyboardEvent) => {
+            if (event.code === "Enter" || event.code === "NumpadEnter") {
+                onClick();
+            }
+        };
+
+        document.addEventListener("keydown", listener);
+
+        return () => {
+            document.removeEventListener("keydown", listener);
+        };
+    }, [onClick]);
 
     return (
         <TextField
