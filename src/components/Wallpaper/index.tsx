@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import "./style.scss";
-import img from "../../assets/images/buckwheat.png";
 
 export const Wallpaper: FC = () => {
     return (

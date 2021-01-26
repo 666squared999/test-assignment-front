@@ -1,15 +1,15 @@
-import React from "react";
-import {
-    makeStyles,
-    useTheme,
-    Theme,
-    createStyles,
-} from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
+import {
+    createStyles,
+    makeStyles,
+    Theme,
+    useTheme,
+} from "@material-ui/core/styles";
 import FirstPageIcon from "@material-ui/icons/FirstPage";
 import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import LastPageIcon from "@material-ui/icons/LastPage";
+import React from "react";
 
 interface TablePaginationActionsProps {
     count: number;

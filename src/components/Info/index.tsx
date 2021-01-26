@@ -1,12 +1,9 @@
-import { ButtonProps } from "@material-ui/core";
 import React, { FC, useCallback, useEffect, useState } from "react";
+import { getBuckWeat } from "../../api/requests";
 import { Filters } from "../Filters";
 import { SearchBar } from "../SearchBar";
-import "./style.scss";
-import { getBuckWeat } from "../../api/requests";
 import { TableWrapper } from "../TableWrapper";
-
-// import { data } from "../../data/index";
+import "./style.scss";
 
 export interface IDataUnit {
     id: string;
