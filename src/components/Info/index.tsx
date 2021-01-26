@@ -1,6 +1,7 @@
 import { InputAdornment, TextField } from "@material-ui/core";
 import { Search } from "@material-ui/icons";
 import React, { FC, useState } from "react";
+import { Filters } from "../Filters";
 import "./style.scss";
 
 export const Info: FC = () => {
@@ -31,12 +32,8 @@ export const Info: FC = () => {
                     variant="outlined"
                 />
             </div>
-            <div className="content">
-                <div>
-                    <p>Вся гречка</p>
-                    <div className="inputsContainer"></div>
-                </div>
-            </div>
+
+            <Filters />
         </div>
     );
 };
