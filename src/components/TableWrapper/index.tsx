@@ -16,6 +16,7 @@ import {
 } from "@material-ui/core";
 import TablePaginationActions from "../../utils/TablePaginationActions";
 import { IDataUnit } from "../Info";
+import capitalizeFirstLetter from "../../utils/capitalizeFirstLetter";
 
 type Props = {
     loading?: boolean;
@@ -99,10 +100,18 @@ export const TableWrapper: FC<Props> = observer(
                                             {row.title}
                                         </TableCell>
                                         <TableCell>
-                                            {row.price_per_kg}
+                                            {Math.round(
+                                                (row.price_per_kg +
+                                                    Number.EPSILON) *
+                                                    100,
+                                            ) / 100}
                                         </TableCell>
                                         <TableCell>{row.weight}</TableCell>
-                                        <TableCell>{row.shopName}</TableCell>
+                                        <TableCell>
+                                            {capitalizeFirstLetter(
+                                                row.shopName,
+                                            )}
+                                        </TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
@@ -121,7 +130,8 @@ export const TableWrapper: FC<Props> = observer(
                                         page={page}
                                         SelectProps={{
                                             inputProps: {
-                                                "aria-label": "rows per page",
+                                                "aria-label":
+                                                    "Рядків на сторінку",
                                             },
                                             native: true,
                                         }}
