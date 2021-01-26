@@ -13,6 +13,7 @@ import {
     TableFooter,
     TablePagination,
     CircularProgress,
+    Avatar,
 } from "@material-ui/core";
 import TablePaginationActions from "../../utils/TablePaginationActions";
 import { IDataUnit } from "../Info";
@@ -54,6 +55,7 @@ export const TableWrapper: FC<Props> = observer(
                         <Table size="medium">
                             <TableHead>
                                 <TableRow>
+                                    <TableCell />
                                     <TableCell>
                                         <TableSortLabel
                                             active={sortBy === "title"}
@@ -96,6 +98,13 @@ export const TableWrapper: FC<Props> = observer(
                                     : rows
                                 ).map((row: IDataUnit) => (
                                     <TableRow key={row.title}>
+                                        <TableCell>
+                                            <Avatar
+                                                alt="Product"
+                                                src={row.photo_url}>
+                                                G
+                                            </Avatar>
+                                        </TableCell>
                                         <TableCell component="th">
                                             {row.title}
                                         </TableCell>
@@ -106,7 +115,12 @@ export const TableWrapper: FC<Props> = observer(
                                                     100,
                                             ) / 100}
                                         </TableCell>
-                                        <TableCell>{row.weight}</TableCell>
+                                        <TableCell>
+                                            {Math.round(
+                                                (row.weight + Number.EPSILON) *
+                                                    100,
+                                            ) / 100}
+                                        </TableCell>
                                         <TableCell>
                                             {capitalizeFirstLetter(
                                                 row.shopName,
