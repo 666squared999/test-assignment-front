@@ -1,11 +1,19 @@
-import { InputAdornment, TextField } from "@material-ui/core";
+import { IconButton, InputAdornment, TextField } from "@material-ui/core";
 import { Search } from "@material-ui/icons";
 import React, { FC, useState } from "react";
 import "./style.scss";
 
-export const SearchBar: FC = () => {
-    const [searchValue, setSearchValue] = useState("");
+type Props = {
+    searchValue: string;
+    setSearchValue: (value: string) => void;
+    onClick: () => void;
+};
 
+export const SearchBar: FC<Props> = ({
+    searchValue,
+    setSearchValue,
+    onClick,
+}) => {
     const handleSearchValueChange = (
         event: React.ChangeEvent<HTMLInputElement>,
     ) => {
@@ -19,7 +27,9 @@ export const SearchBar: FC = () => {
             InputProps={{
                 endAdornment: (
                     <InputAdornment position="end">
-                        <Search color="secondary" />
+                        <IconButton onClick={onClick}>
+                            <Search color="secondary" />
+                        </IconButton>
                     </InputAdornment>
                 ),
             }}

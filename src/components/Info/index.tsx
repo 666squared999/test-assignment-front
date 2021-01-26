@@ -34,8 +34,11 @@ export const Info: FC = () => {
 
     const [filteredRows, setFilteredRows] = useState<IDataUnit[]>([]);
 
+    const [searchValue, setSearchValue] = useState("");
+
     const resetData = useCallback(() => {
         setFilteredRows(rows);
+        setSearchValue("");
     }, [rows]);
 
     const applyFilters = useCallback(() => {
@@ -75,6 +78,21 @@ export const Info: FC = () => {
         weightTop,
     ]);
 
+    const applySearch = useCallback(() => {
+        setFilteredRows(rows);
+
+        if (!searchValue) {
+            return;
+        }
+
+        const filtered = filteredRows.filter((data) => {
+            const title = data.title.toLowerCase();
+
+            return title.includes(searchValue.toLowerCase());
+        });
+        setFilteredRows(filtered);
+    }, [filteredRows, rows, searchValue]);
+
     const handleFetchData = useCallback(async () => {
         try {
             setLoading(true);
@@ -112,7 +130,11 @@ export const Info: FC = () => {
         <div className="Info">
             <div className="header">
                 <p>Гречка для народу</p>
-                <SearchBar />
+                <SearchBar
+                    searchValue={searchValue}
+                    setSearchValue={setSearchValue}
+                    onClick={applySearch}
+                />
             </div>
 
             <Filters
