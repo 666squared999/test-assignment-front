@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect, useState } from "react";
+import React, { FC, useCallback, useState } from "react";
 import { observer } from "mobx-react";
 import "./style.scss";
 import {
@@ -14,10 +14,13 @@ import {
     TablePagination,
     CircularProgress,
     Avatar,
+    IconButton,
+    Link,
 } from "@material-ui/core";
 import TablePaginationActions from "../../utils/TablePaginationActions";
 import { IDataUnit } from "../Info";
 import capitalizeFirstLetter from "../../utils/capitalizeFirstLetter";
+import { Launch } from "@material-ui/icons";
 
 type Props = {
     loading?: boolean;
@@ -106,7 +109,14 @@ export const TableWrapper: FC<Props> = observer(
                                             </Avatar>
                                         </TableCell>
                                         <TableCell component="th">
-                                            {row.title}
+                                            {row.title}{" "}
+                                            <Link href={row.page_url}>
+                                                <Launch
+                                                    fontSize="small"
+                                                    color="secondary"
+                                                    className="linkIcon"
+                                                />
+                                            </Link>
                                         </TableCell>
                                         <TableCell>
                                             {Math.round(
@@ -132,11 +142,26 @@ export const TableWrapper: FC<Props> = observer(
                             <TableFooter>
                                 <TableRow>
                                     <TablePagination
+                                        labelRowsPerPage="Рядків на сторінку"
+                                        labelDisplayedRows={({
+                                            from,
+                                            to,
+                                            count,
+                                        }) => {
+                                            return (
+                                                "" +
+                                                from +
+                                                "-" +
+                                                to +
+                                                " з " +
+                                                count
+                                            );
+                                        }}
                                         rowsPerPageOptions={[
                                             10,
                                             25,
                                             50,
-                                            { label: "All", value: -1 },
+                                            { label: "Усі", value: -1 },
                                         ]}
                                         colSpan={3}
                                         count={rows.length}
@@ -144,8 +169,7 @@ export const TableWrapper: FC<Props> = observer(
                                         page={page}
                                         SelectProps={{
                                             inputProps: {
-                                                "aria-label":
-                                                    "Рядків на сторінку",
+                                                "aria-label": "rows per page",
                                             },
                                             native: true,
                                         }}
