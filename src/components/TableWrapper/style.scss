@@ -19,16 +19,36 @@
                 }
             }
         }
-        th {
-            max-width: 90px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            &:nth-child(3) {
-                max-width: 20px;
+        thead {
+            tr {
+                th {
+                    max-width: 90px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    &:nth-child(3),
+                    &:nth-child(4),
+                    &:nth-child(1) {
+                        max-width: 20px;
+                    }
+                }
             }
-            &:nth-child(2) {
-                max-width: 20px;
+        }
+        tbody {
+            tr {
+                td,
+                th {
+                    max-width: 90px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    &:nth-child(3),
+                    &:nth-child(4),
+                    &:nth-child(1) {
+                        max-width: 30px;
+                        padding: 10px;
+                    }
+                }
             }
         }
     }
