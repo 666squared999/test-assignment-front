@@ -124,7 +124,6 @@ export const TableWrapper: FC<Props> = observer(
                                             50,
                                             { label: "All", value: -1 },
                                         ]}
-                                        colSpan={3}
                                         count={rows.length}
                                         rowsPerPage={rowsPerPage}
                                         page={page}

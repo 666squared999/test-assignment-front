@@ -6,6 +6,8 @@ import "./style.scss";
 import { getBuckWeat } from "../../api/requests";
 import { TableWrapper } from "../TableWrapper";
 
+// import { data } from "../../data/index";
+
 export interface IDataUnit {
     id: string;
     title: string;
