@@ -26,6 +26,10 @@ enum ShopNames {
 export const Info: FC = () => {
     const [rows, setRows] = useState<IDataUnit[]>([]);
     const [loading, setLoading] = useState<boolean>();
+    const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+    const [sortBy, setSortBy] = useState<"title" | "weight" | "price_per_kg">(
+        "title",
+    );
 
     const [priceBottom, setPriceBottom] = useState<number>();
     const [priceTop, setPriceTop] = useState<number>();
@@ -40,6 +44,33 @@ export const Info: FC = () => {
         setFilteredRows(rows);
         setSearchValue("");
     }, [rows]);
+
+    const handleSortRequest = (sortBy: "title" | "weight" | "price_per_kg") => {
+        const changedSortOrder = sortOrder === "asc" ? "desc" : "asc";
+        const sortedItems: IDataUnit[] = sortData(sortBy, changedSortOrder);
+        setSortBy(sortBy);
+        setSortOrder(changedSortOrder);
+        setFilteredRows(sortedItems);
+    };
+
+    const sortData = (
+        sortBy: "title" | "weight" | "price_per_kg",
+        sortOrder: "asc" | "desc",
+    ) => {
+        const rowsCopy = [...rows];
+        const compareFn = (a: IDataUnit, b: IDataUnit): number => {
+            return a[sortBy] < b[sortBy]
+                ? sortOrder === "asc"
+                    ? -1
+                    : 1
+                : sortOrder === "asc"
+                ? 1
+                : -1;
+            return 0;
+        };
+        rowsCopy.sort(compareFn);
+        return rowsCopy;
+    };
 
     const applyFilters = useCallback(() => {
         if (!priceBottom && !priceTop && !weightBottom && !weightTop) {
@@ -150,7 +181,13 @@ export const Info: FC = () => {
                 onCancel={resetData}
             />
 
-            <TableWrapper rows={filteredRows} loading={loading} />
+            <TableWrapper
+                sortOrder={sortOrder}
+                sortBy={sortBy}
+                sortRequest={handleSortRequest}
+                rows={filteredRows}
+                loading={loading}
+            />
         </div>
     );
 };
