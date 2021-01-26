@@ -4,6 +4,7 @@
 .Filters {
     display: flex;
     align-items: center;
+    margin-top: 0.5em;
 
     @include tablets {
         flex-direction: column;

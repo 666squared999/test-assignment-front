@@ -14,30 +14,15 @@ import {
     TablePagination,
     CircularProgress,
 } from "@material-ui/core";
-import { getBuckWeat } from "../../api/requests";
 import TablePaginationActions from "../../utils/TablePaginationActions";
+import { IDataUnit } from "../Info";
 
-interface IDataUnit {
-    id: string;
-    title: string;
-    weight: number;
-    price_per_kg: number;
-    page_url: string;
-    photo_url: string;
-    shopName: string;
-}
+type Props = {
+    loading?: boolean;
+    rows: IDataUnit[];
+};
 
-enum ShopNames {
-    rozetka = 1,
-    fozzyshop = 2,
-    novus = 3,
-    auchan = 4,
-}
-
-export const TableWrapper: FC = observer(() => {
-    const [rows, setRows] = useState<IDataUnit[]>([]);
-    const [loading, setLoading] = useState<boolean>();
-
+export const TableWrapper: FC<Props> = observer(({ rows, loading }) => {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -54,39 +39,6 @@ export const TableWrapper: FC = observer(() => {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     };
-
-    const handleFetchData = useCallback(async () => {
-        try {
-            setLoading(true);
-            const response = await getBuckWeat();
-            const data = await response.json();
-            console.log(data);
-            const preparedData: IDataUnit[] = [];
-            for (let i = 0; i < data.length; i++) {
-                const shopData = data[i];
-                const shopName = ShopNames[i + 1];
-                for (let j = 0; j < shopData[shopName].length; j++) {
-                    const productData = shopData[shopName][j];
-                    preparedData.push({
-                        id: `${i}${j}`,
-                        shopName,
-                        ...productData,
-                    });
-                }
-            }
-            console.log(preparedData);
-
-            setRows(preparedData);
-            setLoading(false);
-        } catch (e) {
-            console.log("Error fetching data", e);
-        }
-    }, []);
-
-    useEffect(() => {
-        handleFetchData();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
     return (
         <div className="Table">

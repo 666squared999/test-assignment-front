@@ -35,20 +35,40 @@ const InputComponent: FC<InputProps> = ({
     />
 );
 
-export const Filters: FC = () => {
-    const [priceBottom, setPriceBottom] = useState<number>();
+type FiltersProps = {
+    priceBottom: number | undefined;
+    priceTop: number | undefined;
+    weightBottom: number | undefined;
+    weightTop: number | undefined;
+
+    setPriceBottom: (value: number) => void;
+    setPriceTop: (value: number) => void;
+    setWeightBottom: (value: number) => void;
+    setWeightTop: (value: number) => void;
+
+    onClick: NonNullable<ButtonProps["onClick"]>;
+};
+
+export const Filters: FC<FiltersProps> = ({
+    priceBottom,
+    priceTop,
+    weightBottom,
+    weightTop,
+    setPriceBottom,
+    setPriceTop,
+    setWeightBottom,
+    setWeightTop,
+    onClick,
+}) => {
     const [priceBottomError, setPriceBottomError] = useState(false);
     const [priceBottomText, setPriceBottomText] = useState("");
 
-    const [priceTop, setPriceTop] = useState<number>();
     const [priceTopError, setPriceTopError] = useState(false);
     const [priceTopText, setPriceTopText] = useState("");
 
-    const [weightBottom, setWeightBottom] = useState<number>();
     const [weightBottomError, setWeightBottomError] = useState(false);
     const [weightBottomText, setWeightBottomText] = useState("");
 
-    const [weightTop, setWeightTop] = useState<number>();
     const [weightTopError, setWeightTopError] = useState(false);
     const [weightTopText, setWeightTopText] = useState("");
 
@@ -73,7 +93,10 @@ export const Filters: FC = () => {
     const handleBottomChange = (type: "weight" | "price") => ({
         currentTarget,
     }: React.ChangeEvent<HTMLInputElement>) => {
-        const value = Number(currentTarget.value);
+        const value =
+            Number(currentTarget.value) !== NaN
+                ? Number(currentTarget.value)
+                : 0;
 
         const isWeight = type === "weight";
         isWeight ? setWeightBottom(value) : setPriceBottom(value);
@@ -107,7 +130,10 @@ export const Filters: FC = () => {
     const handleTopChange = (type: "weight" | "price") => ({
         currentTarget,
     }: React.ChangeEvent<HTMLInputElement>) => {
-        const value = Number(currentTarget.value);
+        const value =
+            Number(currentTarget.value) !== NaN
+                ? Number(currentTarget.value)
+                : 0;
 
         const isWeight = type === "weight";
         isWeight ? setWeightTop(value) : setPriceTop(value);
@@ -134,10 +160,6 @@ export const Filters: FC = () => {
             setTopError(type, "Значення повинне бути більше 0");
         }
     };
-
-    const onClick = useCallback<
-        NonNullable<ButtonProps["onClick"]>
-    >(() => {}, []);
 
     return (
         <div className="Filters">

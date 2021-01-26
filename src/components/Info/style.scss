@@ -2,7 +2,7 @@
 
 .Info {
     width: 90%;
-    padding: 0.5em 5%;
+    padding: 1em 5%;
     display: flex;
     flex-direction: column;
     font-size: 1.5em;
@@ -13,15 +13,6 @@
         align-items: center;
         p {
             color: $color2;
-        }
-        .searchBar {
-            width: 400px;
-            margin-left: 1em;
-        }
-    }
-    .content {
-        display: flex;
-        .inputsContainer {
         }
     }
 }
