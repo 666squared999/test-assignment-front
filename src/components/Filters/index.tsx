@@ -72,6 +72,12 @@ export const Filters: FC<FiltersProps> = ({
     const [weightTopError, setWeightTopError] = useState(false);
     const [weightTopText, setWeightTopText] = useState("");
 
+    const hasError =
+        priceBottomError ||
+        priceTopError ||
+        weightBottomError ||
+        weightTopError;
+
     const setBottomError = useCallback<
         (type: "weight" | "price", errorText: string) => void
     >((type, errorText) => {
@@ -222,6 +228,7 @@ export const Filters: FC<FiltersProps> = ({
                     component="span"
                     variant="contained"
                     color="secondary"
+                    disabled={hasError}
                     onClick={onClick}>
                     Застосувати
                 </Button>
