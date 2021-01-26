@@ -1,4 +1,7 @@
 .Table {
-    background-color: red;
-    color: #f0f;
+    display: flex;
+    align-self: stretch;
+    align-items: center;
+    justify-content: center;
+    margin: 1em 5%;
 }
