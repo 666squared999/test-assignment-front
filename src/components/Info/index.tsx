@@ -32,9 +32,9 @@ export const Info: FC = () => {
     const [weightBottom, setWeightBottom] = useState<number>();
     const [weightTop, setWeightTop] = useState<number>();
 
-    const applyFilters = useCallback<
-        NonNullable<ButtonProps["onClick"]>
-    >(() => {}, []);
+    const applyFilters = useCallback(() => {}, []);
+
+    const resetData = useCallback(() => {}, []);
 
     const handleFetchData = useCallback(async () => {
         try {
@@ -85,7 +85,8 @@ export const Info: FC = () => {
                 setPriceTop={setPriceTop}
                 setWeightBottom={setWeightBottom}
                 setWeightTop={setWeightTop}
-                onClick={applyFilters}
+                onSubmit={applyFilters}
+                onCancel={resetData}
             />
 
             <TableWrapper rows={rows} loading={loading} />

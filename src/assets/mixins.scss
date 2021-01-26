@@ -1,5 +1,5 @@
 $phones: 670px;
-$tablets: 860px;
+$tablets: 1024px;
 
 @mixin phones {
     @media screen and (max-width: $phones) {

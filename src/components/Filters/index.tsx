@@ -22,7 +22,7 @@ const InputComponent: FC<InputProps> = ({
     <TextField
         className="input"
         type="number"
-        value={value}
+        value={value === undefined ? "" : value}
         onChange={onChange}
         placeholder={placeholder}
         error={error}
@@ -41,12 +41,13 @@ type FiltersProps = {
     weightBottom: number | undefined;
     weightTop: number | undefined;
 
-    setPriceBottom: (value: number) => void;
-    setPriceTop: (value: number) => void;
-    setWeightBottom: (value: number) => void;
-    setWeightTop: (value: number) => void;
+    setPriceBottom: (value: number | undefined) => void;
+    setPriceTop: (value: number | undefined) => void;
+    setWeightBottom: (value: number | undefined) => void;
+    setWeightTop: (value: number | undefined) => void;
 
-    onClick: NonNullable<ButtonProps["onClick"]>;
+    onSubmit: () => void;
+    onCancel: () => void;
 };
 
 export const Filters: FC<FiltersProps> = ({
@@ -58,7 +59,8 @@ export const Filters: FC<FiltersProps> = ({
     setPriceTop,
     setWeightBottom,
     setWeightTop,
-    onClick,
+    onSubmit,
+    onCancel,
 }) => {
     const [priceBottomError, setPriceBottomError] = useState(false);
     const [priceBottomText, setPriceBottomText] = useState("");
@@ -167,10 +169,29 @@ export const Filters: FC<FiltersProps> = ({
         }
     };
 
+    const clearFields = useCallback(() => {
+        setPriceBottom(undefined);
+        setPriceTop(undefined);
+        setWeightBottom(undefined);
+        setWeightTop(undefined);
+
+        setPriceBottomError(false);
+        setPriceTopError(false);
+        setWeightBottomError(false);
+        setWeightTopError(false);
+
+        setPriceBottomText("");
+        setPriceTopText("");
+        setWeightBottomText("");
+        setWeightTopText("");
+
+        onCancel();
+    }, [onCancel, setPriceBottom, setPriceTop, setWeightBottom, setWeightTop]);
+
     return (
         <div className="Filters">
             <div className="filterWrapper">
-                <div className="container">
+                <div className="container price">
                     <div className="titleWrapper">
                         <p className="title">Ціна за 1 кг, грн</p>
                     </div>
@@ -224,13 +245,20 @@ export const Filters: FC<FiltersProps> = ({
 
             <div className="buttonWrapper">
                 <Button
-                    className="button"
+                    className="button button_right"
                     component="span"
                     variant="contained"
                     color="secondary"
                     disabled={hasError}
-                    onClick={onClick}>
+                    onClick={onSubmit}>
                     Застосувати
+                </Button>
+                <Button
+                    className="button"
+                    component="span"
+                    variant="outlined"
+                    onClick={clearFields}>
+                    Очистити
                 </Button>
             </div>
         </div>

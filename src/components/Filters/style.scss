@@ -17,11 +17,14 @@
         align-items: center;
         flex: 1;
 
-        @include phones {
-            flex-direction: column;
+        @include tablets {
             align-items: flex-start;
             justify-content: stretch;
             align-self: stretch;
+        }
+
+        @include phones {
+            flex-direction: column;
         }
     }
 
@@ -32,8 +35,18 @@
         flex: 1;
         margin-right: 0.5em;
 
-        @include phones {
+        @include tablets {
             align-self: stretch;
+            margin-right: 0;
+        }
+    }
+
+    .price {
+        @include tablets {
+            margin-right: 0.5em;
+        }
+
+        @include phones {
             margin-right: 0;
         }
     }
@@ -95,5 +108,9 @@
         @include tablets {
             margin: 1em auto;
         }
+    }
+
+    .button_right {
+        margin-right: 1em;
     }
 }
