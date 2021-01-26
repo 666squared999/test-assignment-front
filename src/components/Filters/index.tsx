@@ -248,7 +248,7 @@ export const Filters: FC<FiltersProps> = ({
                     className="button button_right"
                     component="span"
                     variant="contained"
-                    color="secondary"
+                    color="primary"
                     disabled={hasError}
                     onClick={onSubmit}>
                     Застосувати
